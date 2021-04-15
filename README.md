@@ -1,0 +1,1 @@
+# Object Detection with description app (with Azure Cognitive Services)
