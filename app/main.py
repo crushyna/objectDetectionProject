@@ -44,14 +44,31 @@ def video_feed():
 
 
 @app.get("/", response_class=HTMLResponse)
-async def homepage(request: Request, status='start'):
-    return templates.TemplateResponse("index.html", {"request": request, "status": status})
+async def homepage(request: Request, status='start',
+                   nav_1='nav-link active',
+                   nav_2='nav-link',
+                   tab_1='tab-pane active',
+                   tab_2='tab-pane'):
+    return templates.TemplateResponse("index.html", {"request": request, "status": status,
+                                                     "nav_1": nav_1,
+                                                     "nav_2": nav_2,
+                                                     "tab_1": tab_1,
+                                                     "tab_2": tab_2})
 
 
 @app.get('/snapshot', response_class=HTMLResponse)
-def get_snapshot(request: Request, status='snapshot'):
-    current_timestamp: str = datetime.now().strftime('%d%m%y')
+async def get_snapshot(request: Request, status='snapshot',
+                       nav_1='nav-link',
+                       nav_2='nav-link active',
+                       tab_1='tab-pane',
+                       tab_2='tab-pane active'):
+    current_timestamp: str = datetime.now().strftime('%d%m%y%H%M%S')
     snapshot_filename = f'snapshot_{current_timestamp}.jpg'
     success, frame = camera.read()
     cv2.imwrite(os.path.join(SNAPSHOTS_FOLDER, snapshot_filename), frame)
-    return templates.TemplateResponse("index.html", {"request": request, "status": status})
+    return templates.TemplateResponse("index.html", {"request": request, "status": status,
+                                                     "nav_1": nav_1,
+                                                     "nav_2": nav_2,
+                                                     "tab_1": tab_1,
+                                                     "tab_2": tab_2,
+                                                     "snapshot": snapshot_filename})
