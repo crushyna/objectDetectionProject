@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="static/css/Footer-Basic.css">
     <link rel="stylesheet" href="static/css/Footer-Clean.css">
     <link rel="stylesheet" href="static/css/Footer-Dark.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="static/css/Login-Form-Clean.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">																  
     <link rel="stylesheet" href="static/css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
@@ -26,23 +26,23 @@
 </head>
 
 <body style="background: rgb(241,247,252);">
-    <section class="pulse animated login-clean" style="background: rgb(241, 247, 252);">
+    <section class="login-clean" style="background: rgb(241, 247, 252);">
         <form method="post">
             <div style="text-align: center;"><span class="aw-tagline">What's on the camera?</span>
                 <p class="aw-description">Take a snapshot and let the AI recognize objects and describe photo!</p>
             </div>
             <div>
                 <div>
-                    <ul id="mytabs" class="nav nav-pills nav-justified" role="tablist">
+                    <ul id="mytabs" class="nav nav-pills nav-justified invisible" role="tablist">
                         <li class="nav-item" role="presentation"><a class="{{ nav_1 }}" role="tab" data-bs-toggle="pill" id="camera-feed" href="#tab-1">camera-feed</a></li>
                         <li class="nav-item" role="presentation"><a class="{{ nav_2 }}" role="tab" data-bs-toggle="pill" id="decision-panel" href="#tab-2">decision-tab</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="{{ tab_1 }}" role="tabpanel" id="tab-1">
-                            <div class="col-lg-8 offset-lg-2"><img src="{{ url_for('video_feed') }}" width="100%">
+                            <div class="col-lg-8 offset-lg-2"><img src="{{ url_for('video_feed') }}" width="100%">						 
                                 <div class="text-center p-4">
-                                    <a href="/snapshot" id="changetabbutton" class="btn btn-success btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Take a snapshot!</a>
-                                </div>
+									<a href="/snapshot" id="changetabbutton" class="btn btn-success btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Take a snapshot!</a>
+								</div>
                             </div>
                         </div>
                         <div class="{{ tab_2 }}" role="tabpanel" id="tab-2">
@@ -50,7 +50,8 @@
                                 <img width="100%" src="static/snapshots/{{ snapshot }}">
                                 <div class="text-center p-4">
                                     <a href="/" class="btn btn-info btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Try again?</a>
-                                    <button class="btn btn-danger btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Analyze!</button></div>
+                                    <button class="btn btn-danger btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Analyze!</button>
+								</div>
                             </div>
                         </div>
                     </div>
@@ -65,8 +66,7 @@
             </footer>
         </form>
     </section>
-    <script src="static/bootstrap/js/bootstrap.min.js"></script>
-{#    <script src="static/js/next_button.js"></script>#}
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>	  
 </body>
 
 </html>
