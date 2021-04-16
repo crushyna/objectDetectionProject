@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>whatsonthecamera01 (BS 5)</title>
+    <title>whatsonthecamera01 (BS 5)_with_tabs</title>
     <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Almarai">
     <link rel="stylesheet" href="static/fonts/ionicons.min.css">
@@ -22,17 +22,28 @@
             <div style="text-align: center;"><span class="aw-tagline">What's on the camera?</span>
                 <p class="aw-description">Take a snapshot and let the AI recognize objects and describe photo!</p>
             </div>
-            <div class="col-lg-8 offset-lg-2"><img src="{{ url_for('video_feed') }}" width="100%"></div>
-            <div class="text-center p-4">
-                {% if status == 'start' %}
-                <a href="/snapshot" class="btn btn-success btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Take a snapshot!</a>
-                {% else %}
-                <button class="btn btn-info btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Try again?</button>
-                <button class="btn btn-danger btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Analyze!</button>
-                {% endif %}
+            <div>
+                <div>
+                    <ul class="nav nav-pills nav-justified" role="tablist">
+                        <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="pill" id="camera-feed" href="#tab-1">camera-feed</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="pill" id="decision-panel" href="#tab-2">decision-tab</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" role="tabpanel" id="tab-1">
+                            <div class="col-lg-8 offset-lg-2"><img src="{{ url_for('video_feed') }}" width="100%">
+                                <div class="text-center p-4"><button class="btn btn-success btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Take a snapshot!</button></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="tab-2">
+                            <div class="col-lg-8 offset-lg-2"><img width="100%">
+                                <div class="text-center p-4"><button class="btn btn-info btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Try again?</button><button class="btn btn-danger btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Analyze!</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <footer class="footer-basic">
-                <div class="social"><a href="#"><i class="icon ion-social-github"></i></a><a href="#"><i class="icon ion-social-linkedin-outline"></i></a></div>
+                <div class="social"><a href="https://github.com/crushyna"><i class="icon ion-social-github"></i></a><a href="https://www.linkedin.com/in/radosław-malinowski-6a1282115/"><i class="icon ion-social-linkedin-outline"></i></a></div>
                 <ul class="list-inline">
                     <li class="list-inline-item"><a href="#" style="opacity: 0.25;">How does it work?</a></li>
                 </ul>
