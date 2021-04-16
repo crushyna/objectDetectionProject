@@ -23,7 +23,14 @@
                 <p class="aw-description">Take a snapshot and let the AI recognize objects and describe photo!</p>
             </div>
             <div class="col-lg-8 offset-lg-2"><img src="{{ url_for('video_feed') }}" width="100%"></div>
-            <div class="text-center p-4"><button class="btn btn-success btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Take a snapshot!</button><button class="btn btn-info btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Try again?</button><button class="btn btn-danger btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Analyze!</button></div>
+            <div class="text-center p-4">
+                {% if status == 'start' %}
+                <a href="/snapshot" class="btn btn-success btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Take a snapshot!</a>
+                {% else %}
+                <button class="btn btn-info btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Try again?</button>
+                <button class="btn btn-danger btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Analyze!</button>
+                {% endif %}
+            </div>
             <footer class="footer-basic">
                 <div class="social"><a href="#"><i class="icon ion-social-github"></i></a><a href="#"><i class="icon ion-social-linkedin-outline"></i></a></div>
                 <ul class="list-inline">

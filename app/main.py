@@ -1,16 +1,28 @@
+import os
+from datetime import datetime
+from typing import Optional
+
 from fastapi import FastAPI, Request
-from fastapi.openapi.models import Response
 from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import cv2
+from pydantic import BaseModel
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates = Jinja2Templates(directory="app/templates")
+SNAPSHOTS_FOLDER = 'app/static/snapshots'
 
 camera = cv2.VideoCapture(0)
+
+
+class Session(BaseModel):
+    status: Optional[str]
+
+
+session = Session()
 
 
 def gen_frames():  # generate frame by frame from camera
@@ -32,5 +44,14 @@ def video_feed():
 
 
 @app.get("/", response_class=HTMLResponse)
-async def homepage(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+async def homepage(request: Request, status='start'):
+    return templates.TemplateResponse("index.html", {"request": request, "status": status})
+
+
+@app.get('/snapshot', response_class=HTMLResponse)
+def get_snapshot(request: Request, status='snapshot'):
+    current_timestamp: str = datetime.now().strftime('%d%m%y')
+    snapshot_filename = f'snapshot_{current_timestamp}.jpg'
+    success, frame = camera.read()
+    cv2.imwrite(os.path.join(SNAPSHOTS_FOLDER, snapshot_filename), frame)
+    return templates.TemplateResponse("index.html", {"request": request, "status": status})
