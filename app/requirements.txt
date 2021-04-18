@@ -2,3 +2,4 @@ fastapi
 opencv-python
 uvicorn
 aiofiles
+azure-cognitiveservices-vision-computervision
