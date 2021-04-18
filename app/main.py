@@ -54,22 +54,29 @@ def video_feed():
 async def homepage(request: Request, status='start',
                    nav_1='nav-link active',
                    nav_2='nav-link',
+                   nav_3='nav-link',
                    tab_1='tab-pane active',
-                   tab_2='tab-pane'):
+                   tab_2='tab-pane',
+                   tab_3='tab-pane'):
+    print("Rendering welcome template")
     session.clear()
     return templates.TemplateResponse("index.html", {"request": request, "status": status,
                                                      "nav_1": nav_1,
                                                      "nav_2": nav_2,
+                                                     "nav_3": nav_3,
                                                      "tab_1": tab_1,
-                                                     "tab_2": tab_2})
+                                                     "tab_2": tab_2,
+                                                     "tab_3": tab_3})
 
 
 @app.get('/snapshot', response_class=HTMLResponse)
 async def get_snapshot(request: Request, status='snapshot',
                        nav_1='nav-link',
                        nav_2='nav-link active',
+                       nav_3='nav-link',
                        tab_1='tab-pane',
-                       tab_2='tab-pane active'):
+                       tab_2='tab-pane active',
+                       tab_3='tab-pane'):
     current_timestamp: str = datetime.now().strftime('%d%m%y%H%M%S')
     snapshot_filename = f'snapshot_{current_timestamp}.jpg'
     session.snapshot = snapshot_filename
@@ -79,15 +86,30 @@ async def get_snapshot(request: Request, status='snapshot',
     return templates.TemplateResponse("index.html", {"request": request, "status": status,
                                                      "nav_1": nav_1,
                                                      "nav_2": nav_2,
+                                                     "nav_3": nav_3,
                                                      "tab_1": tab_1,
                                                      "tab_2": tab_2,
+                                                     "tab_3": tab_3,
                                                      "snapshot": session.snapshot})
 
 
-@app.post('/process', response_class=HTMLResponse)
-async def process_file(request: Request, status='snapshot'):
+@app.get('/process', response_class=HTMLResponse)
+async def process_file(request: Request, status='snapshot',
+                       nav_1='nav-link',
+                       nav_2='nav-link',
+                       nav_3='nav-link active',
+                       tab_1='tab-pane',
+                       tab_2='tab-pane',
+                       tab_3='tab-pane active'):
+    print("Rendering results tab")
     cognitive_model = CognitiveModel(session.snapshot)
     cognitive_model.get_image_desc()
-    return templates.TemplateResponse("results.html", {"request": request, "status": status,
-                                                       "result_img": session.snapshot,
-                                                       "result_desc": cognitive_model.description})
+    return templates.TemplateResponse("index.html", {"request": request, "status": status,
+                                                     "nav_1": nav_1,
+                                                     "nav_2": nav_2,
+                                                     "nav_3": nav_3,
+                                                     "tab_1": tab_1,
+                                                     "tab_2": tab_2,
+                                                     "tab_3": tab_3,
+                                                     "result_img": session.snapshot,
+                                                     "result_desc": cognitive_model.description})
