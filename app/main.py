@@ -31,7 +31,13 @@ camera = cv2.VideoCapture(0)
 
 
 class Session:
-    def __init__(self, status: Optional[str] = None,
+    """
+    Class for keeping track of variables in session.
+    Have function to clear itself completely.
+    """
+
+    def __init__(self,
+                 status: Optional[str] = None,
                  snapshot: Optional[str] = None,
                  snapshot_fullpath: Optional[str] = None):
         self.status = status
@@ -62,6 +68,9 @@ def gen_frames():  # generate frame by frame from camera
 
 @app.get('/video_feed')
 def video_feed():
+    """
+    Function that returns video feed from camera.
+    """
     return StreamingResponse(gen_frames(), media_type="multipart/x-mixed-replace;boundary=frame")
 
 
@@ -93,6 +102,9 @@ async def get_snapshot(request: Request, status='snapshot',
                        tab_1='tab-pane',
                        tab_2='tab-pane active',
                        tab_3='tab-pane'):
+    """
+    Route to perform snapshot on current frame.
+    """
     current_timestamp: str = datetime.now().strftime('%d%m%y%H%M%S')
     snapshot_filename = f'snapshot_{current_timestamp}.jpg'
     session.snapshot = snapshot_filename
@@ -117,6 +129,9 @@ async def process_file(request: Request, status='snapshot',
                        tab_1='tab-pane',
                        tab_2='tab-pane',
                        tab_3='tab-pane active'):
+    """
+    Route for image processing (sending image to Azure Cognitive Services).
+    """
     print("Rendering results tab")
     cognitive_model = CognitiveModel(session.snapshot_fullpath)
     cognitive_model.get_image_desc()
