@@ -1,7 +1,7 @@
 """
 Entry point and main page for "What's on the camera?" web application.
 """
-
+import logging
 import os
 import sys
 from datetime import datetime
@@ -18,14 +18,19 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-SNAPSHOTS_FOLDER = 'app/static/snapshots'
-LOGS_FOLDER = 'app/logs'
+SNAPSHOTS_FOLDER = 'static/snapshots'
+LOGS_FOLDER = 'logs'
 
 if not os.path.exists(LOGS_FOLDER):
     os.makedirs(LOGS_FOLDER)
 
-# if not os.path.isfile(LOGS_FOLDER+'/application.log'):
-#     os.mknod(LOGS_FOLDER+'application.log')
+if not os.path.isfile(LOGS_FOLDER+'/application.log'):
+    os.mknod(LOGS_FOLDER+'/application.log')
+
+logging.basicConfig(filename=os.path.join(LOGS_FOLDER, 'application.log'),
+                    level=logging.DEBUG,
+                    format='%(asctime)s.%(msecs)03d : %(levelname)s : %(message)s',
+                    datefmt='%Y/%m/%d %H:%M:%S')
 
 camera = cv2.VideoCapture(0)
 
@@ -35,7 +40,6 @@ class Session:
     Class for keeping track of variables in session.
     Have function to clear itself completely.
     """
-
     def __init__(self,
                  status: Optional[str] = None,
                  snapshot: Optional[str] = None,
@@ -82,7 +86,7 @@ async def homepage(request: Request, status='start',
                    tab_1='tab-pane active',
                    tab_2='tab-pane',
                    tab_3='tab-pane'):
-    print("Rendering welcome template")
+    logging.info("Rendering welcome template")
     session.clear()
     FileCleanup.file_cleanup(SNAPSHOTS_FOLDER)
     return templates.TemplateResponse("index.html", {"request": request, "status": status,
@@ -105,6 +109,7 @@ async def get_snapshot(request: Request, status='snapshot',
     """
     Route to perform snapshot on current frame.
     """
+    logging.info("Rendering snapshot tab")
     current_timestamp: str = datetime.now().strftime('%d%m%y%H%M%S')
     snapshot_filename = f'snapshot_{current_timestamp}.jpg'
     session.snapshot = snapshot_filename
@@ -132,7 +137,7 @@ async def process_file(request: Request, status='snapshot',
     """
     Route for image processing (sending image to Azure Cognitive Services).
     """
-    print("Rendering results tab")
+    logging.info("Rendering processing tab")
     cognitive_model = CognitiveModel(session.snapshot_fullpath)
     cognitive_model.get_image_desc()
     return templates.TemplateResponse("index.html", {"request": request, "status": status,
