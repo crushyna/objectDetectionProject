@@ -90,7 +90,7 @@
 }
 
 .aw-description {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-family: Almarai;
   color: rgb(128,128,128);
   padding: 6px;
@@ -98,7 +98,7 @@
 
 @media (min-width: 1200px) {
   .aw-description {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     padding: 8px;
   }
 }

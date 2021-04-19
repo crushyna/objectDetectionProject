@@ -45,16 +45,31 @@
                                 <img width="100%" src="static/snapshots/{{ snapshot }}">
                                 <div class="text-center p-4">
                                     <a class="btn btn-info btn-lg shadow m-4" href="/" type="button" style="font-family: Almarai, sans-serif;">Try again?</a>
-{#                                    <a href="https://www.google.com" class="btn btn-danger btn-lg shadow m-4"  style="font-family: Almarai, sans-serif;" data-bs-target="#message-modal" data-bs-toggle="modal">Analyze!</a>#}
-                                    <a href="/process" class="btn btn-danger btn-lg shadow m-4"  style="font-family: Almarai, sans-serif;">Analyze!</a>
+{#                                  <a href="https://www.google.com" class="btn btn-danger btn-lg shadow m-4"  style="font-family: Almarai, sans-serif;" data-bs-target="#message-modal" data-bs-toggle="modal">Analyze!</a>#}
+                                    <a href="/process" role="button" class="btn btn-danger btn-lg shadow m-4"  style="font-family: Almarai, sans-serif;">Analyze!</a>
                                 </div>
+{#                                < --- MODAL --- >#}
+                                <div id="message-modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="font-family: Almarai, sans-serif;">
+                                                <h4 class="modal-title" style="font-size: 30px;">Processing</h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+                                            </div>
+                                            <div class="modal-body" style="font-family: Almarai, sans-serif;">
+                                                <p class="text-center" style="font-size: 21px;">Please wait...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+{#                                < /// MODAL /// >#}
                             </div>
                         </div>
                         <div class="{{ tab_3 }}" role="tabpanel" id="tab-3">
                             <div class="col-lg-8 offset-lg-2">
-                                <img width="100%" src="static/snapshots/{{ snapshot }}">>
+                                <img width="100%" src="static/snapshots/{{ result_img }}">
                                 <div class="text-center">
-                                    <p class="aw-description">{{ result_desc }}</p>
+                                    <p class="aw-description p-3">{{ result_desc }}</p>
                                 </div>
                                 <div class="text-center p-4">
                                     <a href="/" class="btn btn-info btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Try again?</a>
@@ -71,21 +86,11 @@
                 </ul>
                 <p class="copyright">crushyna © 2021</p>
             </footer>
+
         </form>
     </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
-    <div class="modal fade" role="dialog" tabindex="-1" id="message-modal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="font-family: Almarai, sans-serif;">
-                    <h4 class="modal-title" style="font-size: 30px;">Processing</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="font-family: Almarai, sans-serif;">
-                    <p class="text-center" style="font-size: 21px;">Please wait...</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>

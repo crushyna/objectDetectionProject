@@ -20,7 +20,8 @@ class CognitiveModel:
         """
         # print("===== Describe an image - remote =====")
         # Call API
-        description_results = self.computervision_client.describe_image(self.image_file)
+        local_image = open(self.image_file, 'rb')
+        description_results = self.computervision_client.describe_image_in_stream(local_image)
 
         # Get the captions (descriptions) from the response, with confidence level
         if len(description_results.captions) == 0:

@@ -102,7 +102,7 @@ async def process_file(request: Request, status='snapshot',
                        tab_2='tab-pane',
                        tab_3='tab-pane active'):
     print("Rendering results tab")
-    cognitive_model = CognitiveModel(session.snapshot)
+    cognitive_model = CognitiveModel(session.snapshot_fullpath)
     cognitive_model.get_image_desc()
     return templates.TemplateResponse("index.html", {"request": request, "status": status,
                                                      "nav_1": nav_1,
