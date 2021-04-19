@@ -1,4 +1,6 @@
-fastapi
-opencv-python
-uvicorn
-aiofiles
+fastapi==0.63.0
+opencv-python-headless==4.5.1.48
+uvicorn==0.13.4
+aiofiles==0.6.0
+azure-cognitiveservices-vision-computervision
+jinja2

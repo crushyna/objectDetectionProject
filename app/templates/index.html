@@ -4,42 +4,92 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>whatsonthecamera01 (BS 5)</title>
+    <title>whatsonthecamera01 (BS 5)_with_tabs</title>
     <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Almarai">
     <link rel="stylesheet" href="static/fonts/ionicons.min.css">
     <link rel="stylesheet" href="static/css/Footer-Basic.css">
     <link rel="stylesheet" href="static/css/Footer-Clean.css">
     <link rel="stylesheet" href="static/css/Footer-Dark.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="static/css/Login-Form-Clean.css">
     <link rel="stylesheet" href="static/css/styles.css">
 </head>
 
 <body style="background: rgb(241,247,252);">
-    <section class="pulse animated login-clean" style="background: rgb(241, 247, 252);">
-        <form method="post">
+    <section class="login-clean" style="background: rgb(241, 247, 252);">
+        <form method="GET">
             <div style="text-align: center;"><span class="aw-tagline">What's on the camera?</span>
                 <p class="aw-description">Take a snapshot and let the AI recognize objects and describe photo!</p>
             </div>
-            <div class="col-lg-8 offset-lg-2"><img src="{{ url_for('video_feed') }}" width="100%"></div>
-            <div class="text-center p-4">
-                {% if status == 'start' %}
-                <a href="/snapshot" class="btn btn-success btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Take a snapshot!</a>
-                {% else %}
-                <button class="btn btn-info btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Try again?</button>
-                <button class="btn btn-danger btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Analyze!</button>
-                {% endif %}
+            <div>
+                <div>
+                    <ul class="nav nav-pills nav-justified invisible" role="tablist">
+                        <li class="nav-item" role="presentation"><a class="{{ nav_1 }}" role="tab" data-bs-toggle="pill" id="camera-feed" href="#tab-1">camera-feed</a>
+                        </li>
+                        <li class="nav-item" role="presentation"><a class="{{ nav_2 }}" role="tab" data-bs-toggle="pill" id="decision-tab" href="#tab-2">decision-tab</a>
+                        </li>
+                        <li class="nav-item" role="presentation"><a class="{{ nav_3 }}" role="tab" data-bs-toggle="pill" id="results" href="#tab-3">results</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="{{ tab_1 }}" role="tabpanel" id="tab-1">
+                            <div class="col-lg-8 offset-lg-2">
+                                <img src="{{ url_for('video_feed') }}" width="100%">
+                                <div class="text-center p-4">
+                                    <a href="/snapshot" class="btn btn-success btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Take a snapshot!</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="{{ tab_2 }}" role="tabpanel" id="tab-2">
+                            <div class="col-lg-8 offset-lg-2">
+                                <img width="100%" src="static/snapshots/{{ snapshot }}">
+                                <div class="text-center p-4">
+                                    <a class="btn btn-info btn-lg shadow m-4" href="/" type="button" style="font-family: Almarai, sans-serif;">Try again?</a>
+{#                                  <a href="https://www.google.com" class="btn btn-danger btn-lg shadow m-4"  style="font-family: Almarai, sans-serif;" data-bs-target="#message-modal" data-bs-toggle="modal">Analyze!</a>#}
+                                    <a href="/process" role="button" class="btn btn-danger btn-lg shadow m-4"  style="font-family: Almarai, sans-serif;">Analyze!</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="{{ tab_3 }}" role="tabpanel" id="tab-3">
+                            <div class="col-lg-8 offset-lg-2">
+                                <img width="100%" src="static/snapshots/{{ result_img }}">
+                                <div class="text-center">
+                                    <p class="aw-description p-3">{{ result_desc }}</p>
+                                </div>
+                                <div class="text-center p-4">
+                                    <a href="/" class="btn btn-info btn-lg shadow m-4" type="button" style="font-family: Almarai, sans-serif;">Try again?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <footer class="footer-basic">
-                <div class="social"><a href="#"><i class="icon ion-social-github"></i></a><a href="#"><i class="icon ion-social-linkedin-outline"></i></a></div>
+                <div class="social"><a href="https://github.com/crushyna"><i class="icon ion-social-github"></i></a><a href="https://www.linkedin.com/in/radosław-malinowski-6a1282115/"><i class="icon ion-social-linkedin-outline"></i></a></div>
                 <ul class="list-inline">
                     <li class="list-inline-item"><a href="#" style="opacity: 0.25;">How does it work?</a></li>
                 </ul>
                 <p class="copyright">crushyna © 2021</p>
             </footer>
+
         </form>
+{#         < --- MODAL --- >#}
+        <div id="message-modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="font-family: Almarai, sans-serif;">
+                        <h4 class="modal-title" style="font-size: 30px;">Processing</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body" style="font-family: Almarai, sans-serif;">
+                        <p class="text-center" style="font-size: 21px;">Please wait...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+{#      < /// MODAL /// >#}
     </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
