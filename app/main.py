@@ -1,8 +1,13 @@
+"""
+Entry point and main page for "What's on the camera?" web application.
+"""
+
 import os
+import sys
 from datetime import datetime
 from typing import Optional
-from .models.cognitivemodel import CognitiveModel
-from .helpers.file_cleanup import FileCleanup
+from models.cognitivemodel import CognitiveModel
+from helpers.file_cleanup import FileCleanup
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -11,25 +16,27 @@ import cv2
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
-templates = Jinja2Templates(directory="app/templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 SNAPSHOTS_FOLDER = 'app/static/snapshots'
 LOGS_FOLDER = 'app/logs'
 
 if not os.path.exists(LOGS_FOLDER):
     os.makedirs(LOGS_FOLDER)
 
-if not os.path.isfile(LOGS_FOLDER + '/application.log'):
-    os.mknod(LOGS_FOLDER + 'application.log')
+# if not os.path.isfile(LOGS_FOLDER+'/application.log'):
+#     os.mknod(LOGS_FOLDER+'application.log')
 
 camera = cv2.VideoCapture(0)
 
 
 class Session:
-    def __init__(self, status: Optional[str] = None, snapshot: Optional[str] = None):
+    def __init__(self, status: Optional[str] = None,
+                 snapshot: Optional[str] = None,
+                 snapshot_fullpath: Optional[str] = None):
         self.status = status
         self.snapshot = snapshot
-        self.snapshot_fullpath = None
+        self.snapshot_fullpath = snapshot_fullpath
 
     def clear(self):
         self.status = None
