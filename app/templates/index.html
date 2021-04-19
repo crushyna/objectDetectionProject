@@ -48,21 +48,6 @@
 {#                                  <a href="https://www.google.com" class="btn btn-danger btn-lg shadow m-4"  style="font-family: Almarai, sans-serif;" data-bs-target="#message-modal" data-bs-toggle="modal">Analyze!</a>#}
                                     <a href="/process" role="button" class="btn btn-danger btn-lg shadow m-4"  style="font-family: Almarai, sans-serif;">Analyze!</a>
                                 </div>
-{#                                < --- MODAL --- >#}
-                                <div id="message-modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header" style="font-family: Almarai, sans-serif;">
-                                                <h4 class="modal-title" style="font-size: 30px;">Processing</h4>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
-                                            </div>
-                                            <div class="modal-body" style="font-family: Almarai, sans-serif;">
-                                                <p class="text-center" style="font-size: 21px;">Please wait...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-{#                                < /// MODAL /// >#}
                             </div>
                         </div>
                         <div class="{{ tab_3 }}" role="tabpanel" id="tab-3">
@@ -88,6 +73,21 @@
             </footer>
 
         </form>
+{#         < --- MODAL --- >#}
+        <div id="message-modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="font-family: Almarai, sans-serif;">
+                        <h4 class="modal-title" style="font-size: 30px;">Processing</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body" style="font-family: Almarai, sans-serif;">
+                        <p class="text-center" style="font-size: 21px;">Please wait...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+{#      < /// MODAL /// >#}
     </section>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="static/bootstrap/js/bootstrap.min.js"></script>

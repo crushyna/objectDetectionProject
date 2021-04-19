@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 from typing import Optional
 from .models.cognitivemodel import CognitiveModel
+from .helpers.file_cleanup import FileCleanup
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -13,6 +14,13 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates = Jinja2Templates(directory="app/templates")
 SNAPSHOTS_FOLDER = 'app/static/snapshots'
+LOGS_FOLDER = 'app/logs'
+
+if not os.path.exists(LOGS_FOLDER):
+    os.makedirs(LOGS_FOLDER)
+
+if not os.path.isfile(LOGS_FOLDER + '/application.log'):
+    os.mknod(LOGS_FOLDER + 'application.log')
 
 camera = cv2.VideoCapture(0)
 
@@ -60,6 +68,7 @@ async def homepage(request: Request, status='start',
                    tab_3='tab-pane'):
     print("Rendering welcome template")
     session.clear()
+    FileCleanup.file_cleanup(SNAPSHOTS_FOLDER)
     return templates.TemplateResponse("index.html", {"request": request, "status": status,
                                                      "nav_1": nav_1,
                                                      "nav_2": nav_2,
