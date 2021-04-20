@@ -17,6 +17,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN apt update -y && apt install -y \
+    libsm6 \
+    libxext6 \
+    libxrender-dev
+
+
 COPY sshd_config /etc/ssh/
 EXPOSE 2222 80
 
