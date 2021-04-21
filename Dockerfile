@@ -24,8 +24,8 @@ RUN apt update -y && apt install -y \
 
 
 COPY sshd_config /etc/ssh/
-EXPOSE 2222 80
-
+#EXPOSE 2222 80
+EXPOSE 8000
 COPY ./app /app
 
 RUN python -m pip install --upgrade pip
