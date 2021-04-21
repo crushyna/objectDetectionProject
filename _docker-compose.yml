@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+  webapp:
+    build: ./
+    ports:
+      - "80:80"
+    environment:
+      - DISPLAY=unix$DISPLAY
+    volumes:
+      - ./app:/app
+      - ./:/webcam
+      - /dev/video0:/dev/video0
+      - /dev/ttyACM0:/dev/ttyACM0
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    privileged: true
+    # command: pip install -r requirements.txt && flask run --port=8000
+    # Infinite loop, to keep it alive, for debugging
+    # command: bash -c "while true; do echo 'sleeping...' && sleep 10; done"
