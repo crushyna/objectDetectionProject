@@ -9,7 +9,7 @@ services:
     environment:
       - DISPLAY=unix$DISPLAY
     volumes:
-      - ./app:/app
+      - ${WEBAPP_STORAGE_HOME}/app:/app
     devices:
       - /dev/video0:/dev/video0
     privileged: true
