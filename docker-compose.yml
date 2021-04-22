@@ -2,7 +2,8 @@ version: '3'
 services:
 
   app:
-    build: ./
+    image: crushyna/object_detection_project:latest
+    command: python -m uvicorn --host=0.0.0.0 main:app
     ports:
       - "8000:8000"
     environment:
